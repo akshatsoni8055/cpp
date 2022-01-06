@@ -19,6 +19,38 @@ public:
             if (!visited[i])
                 DFS(i);
     }
+    void dfsitr(int s) {
+    int V = adj.size();
+    // Initially mark all vertices as not visited
+    vector<bool> visited(V, false);
+
+    // Create a stack for DFS
+    stack<int> stack;
+
+    // Push the current source node.
+    stack.push(s);
+
+    while (!stack.empty()) {
+        // Pop a vertex from stack and print it
+        int s = stack.top();
+        stack.pop();
+
+        // Stack may contain same vertex twice. So
+        // we need to print the popped item only
+        // if it is not visited.
+        if (!visited[s]) {
+            cout << s << " ";
+            visited[s] = true;
+        }
+
+        // Get all adjacent vertices of the popped vertex s
+        // If a adjacent has not been visited, then push it
+        // to the stack.
+        for (auto i : adj[s])
+            if (!visited[i])
+                stack.push(i);
+    }
+}
 
     void BFS(int s) {
         map<int, bool> vis;
@@ -61,6 +93,8 @@ int main() {
     g.BFS(2);
     cout << endl;
     g.DFS(2);
+    cout << endl;
+    g.dfsitr(2);
 
     return 0;
 }
