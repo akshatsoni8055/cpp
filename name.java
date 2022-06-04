@@ -1,23 +1,22 @@
-import java.util.Scanner;
+import java.sql.*;
 
-class Temp {
-    public static void main (String[] args) {
-
-        Scanner scan = new Scanner(System.in);
-
-        String name = scan.nextLine();
-
-        System.out.println(name);
-
-        int [] arr = {1,2,3,4,5};
-
-        for (int a:arr) System.out.println(a);
-
+class MysqlCon {
+    public static void main(String args[]) {
         try {
-            System.out.println(arr[6]);
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/sonoo", "root", "root");
+            // here sonoo is database name, root is username and password
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from emp");
+            while (rs.next())
+                System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
+            con.close();
         } catch (Exception e) {
             System.out.println(e);
-        }
 
+
+
+        }
     }
 }
